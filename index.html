@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HayVoary Pro - Inscription</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div>
+        <h1>HayVoary Pro</h1>
+        <p>Crée ton profil professionnel et ton identité <strong>@hayvoary.com</strong> (démo GitHub-ready)</p>
+        <div class="chips">
+          <span class="chip">Inscription +261</span>
+          <span class="chip">OTP (démo)</span>
+          <span class="chip">Photo de profil</span>
+          <span class="chip">Expériences pro</span>
+          <span class="chip">Messagerie perso</span>
+        </div>
+      </div>
+      <div class="hero-note">
+        <p><strong>Important :</strong> cette version fonctionne sur GitHub Pages en mode simulation.</p>
+        <p>Les vrais mails `@hayvoary.com` nécessitent un service mail + une API (on prépare déjà la structure).</p>
+      </div>
+    </header>
+
+    <main class="grid-2">
+      <!-- FORMULAIRE -->
+      <section class="card">
+        <h2>Créer mon compte</h2>
+        <p class="muted">Usage personnel (1 compte). Tu pourras voir tes mails dans ton espace personnel.</p>
+
+        <label>Nom complet *</label>
+        <input id="fullName" type="text" placeholder="Ex: Ramaroson Joachim Jaurès" />
+
+        <div class="row">
+          <div>
+            <label>Titre professionnel *</label>
+            <input id="jobTitle" type="text" placeholder="Ex: Responsable de Programme" />
+          </div>
+          <div>
+            <label>Secteur</label>
+            <input id="sector" type="text" placeholder="Ex: Éducation / ONG / Agro" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Ville</label>
+            <input id="city" type="text" placeholder="Ex: Toamasina / Sambava / Tana" />
+          </div>
+          <div>
+            <label>Numéro malgache (+261) *</label>
+            <input id="phone" type="tel" placeholder="+261341234567" />
+            <small id="phoneHelp" class="muted">Format attendu: +26132/33/34/37/38xxxxxxx</small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Nom d’adresse pro souhaité *</label>
+            <input id="emailLocal" type="text" placeholder="prenom.nom" />
+            <small class="muted">Adresse: <span id="emailPreview">prenom.nom@hayvoary.com</span></small>
+          </div>
+          <div>
+            <label>Mot de passe (démo) *</label>
+            <input id="password" type="password" placeholder="Min. 8 caractères" />
+          </div>
+        </div>
+
+        <label>Bio professionnelle</label>
+        <textarea id="bio" placeholder="Décris ton expertise, tes objectifs, ton expérience..."></textarea>
+
+        <label>Photo de profil</label>
+        <input id="avatarInput" type="file" accept="image/*" />
+
+        <div class="preview-card">
+          <img id="avatarPreview" class="avatar lg" alt="Aperçu profil" />
+          <div>
+            <h3 id="previewName">Votre nom</h3>
+            <p id="previewTitle" class="muted">Votre titre professionnel</p>
+            <p id="previewMail" class="badge">votreadresse@hayvoary.com</p>
+            <div class="chips" id="previewChips"></div>
+          </div>
+        </div>
+
+        <hr />
+
+        <h3>Validation téléphone (+261) — OTP (démo)</h3>
+        <div class="row">
+          <div>
+            <label>Code OTP</label>
+            <input id="otpInput" type="text" maxlength="6" placeholder="Code à 6 chiffres" />
+          </div>
+          <div class="otp-buttons">
+            <button class="btn secondary" id="sendOtpBtn" type="button">Envoyer OTP</button>
+            <button class="btn success" id="verifyOtpBtn" type="button">Valider OTP</button>
+          </div>
+        </div>
+        <div id="otpStatus" class="status warn">Non vérifié</div>
+        <p id="otpDemoMessage" class="muted small"></p>
+
+        <hr />
+
+        <h3>Expériences professionnelles</h3>
+        <div class="row">
+          <div>
+            <label>Poste</label>
+            <input id="expRole" type="text" placeholder="Ex: Responsable Programme École" />
+          </div>
+          <div>
+            <label>Organisation</label>
+            <input id="expOrg" type="text" placeholder="Ex: ADES" />
+          </div>
+        </div>
+        <div class="row-3">
+          <div>
+            <label>Début</label>
+            <input id="expStart" type="month" />
+          </div>
+          <div>
+            <label>Fin</label>
+            <input id="expEnd" type="month" />
+          </div>
+          <div>
+            <label>Lieu</label>
+            <input id="expPlace" type="text" placeholder="Ex: Madagascar" />
+          </div>
+        </div>
+        <label>Description</label>
+        <textarea id="expDesc" placeholder="Missions, résultats, responsabilités..."></textarea>
+
+        <div class="actions">
+          <button class="btn secondary" id="addExpBtn" type="button">Ajouter l’expérience</button>
+        </div>
+
+        <div id="experienceList"></div>
+
+        <div class="actions">
+          <button class="btn" id="createAccountBtn" type="button">Créer mon compte</button>
+          <button class="btn secondary" id="clearFormBtn" type="button">Réinitialiser</button>
+        </div>
+
+        <div id="formMessage" class="alert hidden"></div>
+      </section>
+
+      <!-- APERCU -->
+      <section class="card">
+        <h2>Aperçu du profil</h2>
+        <div id="liveProfilePreview" class="profile-card-large">
+          <div class="profile-header">
+            <img id="liveAvatar" class="avatar xl" alt="Profil" />
+            <div>
+              <h3 id="liveName">Votre nom</h3>
+              <p id="liveJob" class="muted">Titre professionnel</p>
+              <p id="liveEmail" class="badge">adresse@hayvoary.com</p>
+              <div class="chips" id="liveTags"></div>
+            </div>
+          </div>
+
+          <div class="section-box">
+            <h4>Bio</h4>
+            <p id="liveBio" class="muted">Votre bio apparaîtra ici.</p>
+          </div>
+
+          <div class="section-box">
+            <h4>Expériences</h4>
+            <div id="liveExpList" class="muted">Aucune expérience ajoutée pour le moment.</div>
+          </div>
+        </div>
+
+        <div class="alert info">
+          Après création du compte, tu seras redirigé vers <strong>dashboard.html</strong> (ton espace personnel).
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

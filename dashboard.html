@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HayVoary Pro - Espace personnel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div>
+        <h1>HayVoary Pro — Espace personnel</h1>
+        <p class="muted">Messagerie personnelle + profil professionnel</p>
+      </div>
+      <div class="actions">
+        <button class="btn secondary" id="syncMailsBtn" type="button">Synchroniser (API)</button>
+        <button class="btn secondary" id="logoutBtn" type="button">Déconnexion</button>
+      </div>
+    </header>
+
+    <main class="dashboard-layout">
+      <!-- COLONNE GAUCHE PROFIL -->
+      <aside class="card sidebar-profile">
+        <h2>Mon Profil</h2>
+        <div class="profile-header">
+          <img id="dashAvatar" class="avatar xl" alt="Photo profil" />
+          <div>
+            <h3 id="dashName">Nom</h3>
+            <p id="dashJob" class="muted">Titre</p>
+            <p id="dashEmail" class="badge">@hayvoary.com</p>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <h4>Infos</h4>
+          <p><strong>Téléphone :</strong> <span id="dashPhone">-</span></p>
+          <p><strong>Ville :</strong> <span id="dashCity">-</span></p>
+          <p><strong>Secteur :</strong> <span id="dashSector">-</span></p>
+          <p><strong>OTP :</strong> <span id="dashOtp">-</span></p>
+        </div>
+
+        <div class="section-box">
+          <h4>Bio</h4>
+          <p id="dashBio" class="muted">-</p>
+        </div>
+
+        <div class="section-box">
+          <h4>Expériences</h4>
+          <div id="dashExpList"></div>
+        </div>
+      </aside>
+
+      <!-- COLONNE DROITE MESSAGERIE -->
+      <section class="card">
+        <div class="mail-header">
+          <div>
+            <h2>Messagerie</h2>
+            <p class="muted small">
+              Mode GitHub Pages : simulation locale + possibilité de brancher une API réelle plus tard
+            </p>
+          </div>
+          <button class="btn" id="composeBtn" type="button">Nouveau mail</button>
+        </div>
+
+        <div class="mail-layout">
+          <!-- Dossiers -->
+          <nav class="mail-sidebar">
+            <button class="folder-btn active" data-folder="inbox">📥 Réception <span id="countInbox">0</span></button>
+            <button class="folder-btn" data-folder="sent">📤 Envoyés <span id="countSent">0</span></button>
+            <button class="folder-btn" data-folder="drafts">📝 Brouillons <span id="countDrafts">0</span></button>
+            <button class="folder-btn" data-folder="spam">🚫 Spam <span id="countSpam">0</span></button>
+            <button class="folder-btn" data-folder="trash">🗑️ Corbeille <span id="countTrash">0</span></button>
+          </nav>
+
+          <!-- Liste + lecture -->
+          <div class="mail-main">
+            <div class="mail-toolbar">
+              <input id="mailSearch" type="text" placeholder="Rechercher un mail..." />
+              <button class="btn secondary" id="resetSearchBtn" type="button">Reset</button>
+            </div>
+
+            <div id="mailList" class="mail-list"></div>
+
+            <div id="mailReader" class="mail-reader hidden">
+              <div class="mail-reader-head">
+                <h3 id="readSubject">Sujet</h3>
+                <div class="mail-reader-actions">
+                  <button class="btn secondary" id="markSpamBtn" type="button">Spam</button>
+                  <button class="btn secondary" id="markInboxBtn" type="button">Réception</button>
+                  <button class="btn secondary" id="restoreBtn" type="button">Restaurer</button>
+                  <button class="btn danger" id="deleteMailBtn" type="button">Supprimer</button>
+                </div>
+              </div>
+              <p id="readMeta" class="muted small">De / À / Date</p>
+              <hr />
+              <div id="readBody"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL COMPOSITION -->
+  <div id="composeModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>Nouveau mail</h3>
+        <button class="icon-btn" id="closeComposeBtn" type="button">✕</button>
+      </div>
+
+      <label>À</label>
+      <input id="composeTo" type="email" placeholder="exemple@hayvoary.com" />
+
+      <label>Sujet</label>
+      <input id="composeSubject" type="text" placeholder="Sujet du message" />
+
+      <label>Message</label>
+      <textarea id="composeBody" placeholder="Écris ton message..."></textarea>
+
+      <div class="actions">
+        <button class="btn secondary" id="saveDraftBtn" type="button">Enregistrer brouillon</button>
+        <button class="btn" id="sendMailBtn" type="button">Envoyer</button>
+      </div>
+      <div id="composeMessage" class="alert hidden"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
